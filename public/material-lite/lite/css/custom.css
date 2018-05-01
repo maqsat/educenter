@@ -1,0 +1,3 @@
+.page-titles h3, .page-titles .breadcrumb li{
+    text-transform: capitalize;
+}
