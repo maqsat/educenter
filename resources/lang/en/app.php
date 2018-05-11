@@ -18,4 +18,7 @@ return [
     'subject' => 'Предмет',
     'specialty' => 'Специальность',
     'group' => 'Группы',
+    'user' => 'Студенты',
+    'teachers' => 'Оценка',
+    'estimate' => 'Оценка'
 ];

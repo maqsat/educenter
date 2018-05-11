@@ -59,11 +59,8 @@ class SpecialtyController extends Controller
     {
         $subjects = Subject::all();
         $specialties = Specialty::find($id);
-        $specialty_subjects = DB::table('specialty_subjects')
-            ->join('subjects','specialty_subjects.subject','=','subjects.id')
-            ->where('specialty',$id)
-            ->get();
-        return view('specialty', compact('subjects','specialties','specialty_subjects'));
+
+        return view('specialty', compact('subjects','specialties','id'));
     }
 
     /**
@@ -110,14 +107,16 @@ class SpecialtyController extends Controller
         $specialty_subjects = DB::table('specialty_subjects')
             ->where('subject',$request->subject)
             ->where('specialty',$request->specialty)
+            ->where('semester',$request->semester)
             ->count();
         if($specialty_subjects > 0)  return redirect()->back();
 
         $input = $request->except(['_token']);
 
         DB::table('specialty_subjects')->insert([
-            'subject' => $request->subject,
+            'subject'   => $request->subject,
             'specialty' => $request->specialty,
+            'semester'  => $request->semester
         ]);
 
         return redirect()->back();

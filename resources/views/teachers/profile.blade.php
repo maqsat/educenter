@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <!-- Column -->
     <div class="col-lg-12">
         <div class="card">
             <div class="card-block">
@@ -23,14 +21,13 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <?php $list = \App\Models\Group::all()?>
                         @foreach($list as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->title }}</td>
                                 <td>
-                                    <a href="" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down" title="Удалить" style="margin: 5px;"><i class="mdi mdi-delete"></i>Удалить</a>
-                                    <a href="" class="btn waves-effect waves-light btn-info pull-right hidden-sm-down"  title="Изменить" style="margin: 5px;"><i class="mdi mdi-grease-pencil"></i>Изменить</a>
-                                    <a href="/{{ $route_name }}/{{ $item->id }}" class="btn waves-effect waves-light btn-success pull-right hidden-sm-down"  title="Посмотреть" style="margin: 5px;"><i class="mdi mdi-eye"></i>Посмотреть</a>
+                                    <a href="/estimate" class="btn waves-effect waves-light btn-success pull-right hidden-sm-down"  title="Посмотреть" style="margin: 5px;"><i class="mdi mdi-eye"></i>Оценка</a>
                                 </td>
                             </tr>
                         @endforeach

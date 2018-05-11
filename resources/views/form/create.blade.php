@@ -45,7 +45,36 @@
                         <div class="form-group">
                             <label class="col-md-12">Семестр</label>
                             <div class="col-md-12">
-                                <input type="number" class="form-control form-control-line" name="semester" min="1" max="8" value="1">
+                                <select class="form-control form-control-line" name="semester">
+                                    <option>Не выбрано</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </div>
+                        </div>
+                    @elseif($route_name == 'user')
+                        <div class="form-group">
+                            <label class="col-md-12">ФИО</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control form-control-line" name="name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Номер зачетки</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control form-control-line" name="uniqid">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Пароль</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control form-control-line" name="password">
                             </div>
                         </div>
                     @else

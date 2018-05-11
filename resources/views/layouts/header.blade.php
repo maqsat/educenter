@@ -6,16 +6,16 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="index.html">
                 <!-- Logo icon -->
-                <b>
+{{--                <b>
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                     <!-- Light Logo icon -->
                     <img src="/material-lite/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
-                </b>
+                </b>--}}
                 <!--End Logo icon -->
                 <!-- Logo text -->
                 <span>
                  <!-- Light Logo text -->
-                 <img src="/material-lite/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
+                 <img src="http://aacademymvd.kz/templates/ja_university/images/logo.png" class="light-logo" alt="homepage" />
                 </span>
             </a>
         </div>

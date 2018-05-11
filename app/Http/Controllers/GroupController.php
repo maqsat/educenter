@@ -70,7 +70,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('/user?group='.$id);
     }
 
     /**
