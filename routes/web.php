@@ -20,6 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/teachers', 'HomeController@teachers')->name('teachers');
 Route::get('/estimate', 'HomeController@estimate')->name('estimate');
+Route::get('/attestation', 'HomeController@attestation')->name('attestation');
+Route::get('/student', 'HomeController@student')->name('student');
 
 
 

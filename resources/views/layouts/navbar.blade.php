@@ -14,6 +14,9 @@
                     <li>
                         <a class="waves-effect waves-dark" href="/teachers#" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Расписание</span></a>
                     </li>
+                    <li>
+                        <a class="waves-effect waves-dark" href="/attestation" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Текущая аттестация</span></a>
+                    </li>
                 @else
                     <li>
                         <a class="waves-effect waves-dark" href="/faculty" aria-expanded="false"><i class="mdi mdi-bank"></i><span class="hide-menu">Факультеты</span></a>

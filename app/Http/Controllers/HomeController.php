@@ -35,4 +35,13 @@ class HomeController extends Controller
     {
         return view('teachers.estimate');
     }
+
+    public function attestation(){
+        return view('teachers.attestation');
+    }
+
+    public function student()
+    {
+        return view('teachers.student');
+    }
 }

@@ -20,5 +20,7 @@ return [
     'group' => 'Группы',
     'user' => 'Студенты',
     'teachers' => 'Оценка',
-    'estimate' => 'Оценка'
+    'estimate' => 'Оценка',
+    'attestation' => 'Текущая аттестация',
+    'student' => 'Студенты',
 ];
