@@ -4,20 +4,7 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                @if(Route::currentRouteName() == 'teachers')
-                    <li>
-                        <a class="waves-effect waves-dark" href="/teachers#" aria-expanded="false"><i class="mdi mdi-bank"></i><span class="hide-menu">Профиль</span></a>
-                    </li>
-                    <li>
-                        <a class="waves-effect waves-dark" href="/teachers" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Группы</span></a>
-                    </li>
-                    <li>
-                        <a class="waves-effect waves-dark" href="/teachers#" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Расписание</span></a>
-                    </li>
-                    <li>
-                        <a class="waves-effect waves-dark" href="/attestation" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Текущая аттестация</span></a>
-                    </li>
-                @else
+                @if(Auth::check() && Auth::user()->type_id == 1)
                     <li>
                         <a class="waves-effect waves-dark" href="/faculty" aria-expanded="false"><i class="mdi mdi-bank"></i><span class="hide-menu">Факультеты</span></a>
                     </li>
@@ -25,13 +12,32 @@
                         <a class="waves-effect waves-dark" href="/specialty" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Специальность</span></a>
                     </li>
                     <li>
-                        <a class="waves-effect waves-dark" href="/group" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Группы</span></a>
+                        <a class="waves-effect waves-dark" href="/logout" aria-expanded="false"><i class="mdi mdi-power"></i><span class="hide-menu">Выйти</span></a>
+                    </li>
+                @elseif(Auth::check() && Auth::user()->type_id == 2)
+                    <li>
+                        <a class="waves-effect waves-dark" href="/profile" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Профиль</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-dark" href="/teachers-group" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Группы</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-dark" href="/teachers#" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Расписание</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-dark" href="/attestation" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Текущая аттестация</span></a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-dark" href="/logout" aria-expanded="false"><i class="mdi mdi-power"></i><span class="hide-menu">Выйти</span></a>
+                    </li>
+                @elseif(Auth::check() && Auth::user()->type_id == 3)
+
+                @else
+                    <li>
+                        <a class="waves-effect waves-dark" href="/login" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Вход</span></a>
                     </li>
                 @endif
             </ul>
-            <div class="text-center m-t-30">
-                <a href="https://wrappixel.com/templates/materialpro/" class="btn waves-effect waves-light btn-warning hidden-md-down"> Upgrade to Pro</a>
-            </div>
         </nav>
         <!-- End Sidebar navigation -->
     </div>

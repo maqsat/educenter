@@ -21,6 +21,7 @@
     <link href="/material-lite/assets/plugins/c3-master/c3.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="/material-lite/lite/css/style.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="/material-lite/lite/css/colors/blue.css" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -37,7 +38,8 @@
 <!-- ============================================================== -->
 <div class="preloader">
     <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+    </svg>
 </div>
 <!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->
@@ -70,6 +72,11 @@
             <!-- ============================================================== -->
             <div class="row page-titles">
                 <div class="col-md-5 col-8 align-self-center">
+                    <?php
+                        $route_name_copy = $route_name;
+                        if(isset($_GET['group'] )) $route_name = $route_name.'.student';
+                        if(isset($_GET['cathedra'] )) $route_name = $route_name.'.teachers';
+                    ?>
                     <h3 class="text-themecolor">{{ trans('app.'.$route_name) }}</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Главная</a></li>
@@ -78,9 +85,14 @@
                         @endif
                         <li class="breadcrumb-item active">{{ trans('app.'.$route_name) }}</li>
                     </ol>
+                    <?php
+                        $route_name= $route_name_copy ;
+                    ?>
                 </div>
                 <div class="col-md-7 col-4 align-self-center">
-                    <a href="/{{ $route_name }}/create" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Добавить</a>
+                    @if(Auth::check())
+                    <a href="/{{ $route_name }}/create?@if(isset($_GET['group']))group={{ $_GET['group'] }}@elseif(isset($_GET['cathedra']))cathedra={{ $_GET['cathedra'] }} @endif" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down"> Добавить</a>
+                    @endif
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -104,7 +116,7 @@
         <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->
-        <footer class="footer"> © 2017 Material Pro Admin by wrappixel.com </footer>
+        <footer class="footer"> © 2018 BG Pro. Разработка и поддержка системы управление обучением</footer>
         <!-- ============================================================== -->
         <!-- End footer -->
         <!-- ============================================================== -->

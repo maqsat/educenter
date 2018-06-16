@@ -57,10 +57,7 @@ class SpecialtyController extends Controller
      */
     public function show($id)
     {
-        $subjects = Subject::all();
-        $specialties = Specialty::find($id);
-
-        return view('specialty', compact('subjects','specialties','id'));
+            return redirect('/group?specialty='.$id);
     }
 
     /**
@@ -95,30 +92,5 @@ class SpecialtyController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function subjects(Request $request)
-    {
-        $request->validate([
-            'subject' => 'required|integer',
-            'specialty' => 'required',
-        ]);
-
-        $specialty_subjects = DB::table('specialty_subjects')
-            ->where('subject',$request->subject)
-            ->where('specialty',$request->specialty)
-            ->where('semester',$request->semester)
-            ->count();
-        if($specialty_subjects > 0)  return redirect()->back();
-
-        $input = $request->except(['_token']);
-
-        DB::table('specialty_subjects')->insert([
-            'subject'   => $request->subject,
-            'specialty' => $request->specialty,
-            'semester'  => $request->semester
-        ]);
-
-        return redirect()->back();
     }
 }

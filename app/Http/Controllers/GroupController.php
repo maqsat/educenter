@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\Subject;
 use App\Models\Specialty;
 use Illuminate\Http\Request;
+use DB;
+use Auth;
 
 class GroupController extends Controller
 {
@@ -13,10 +16,12 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $list = Group::all();
-        return view('form.index',compact('list'));
+            if(isset($request->specialty)) $list = Group::where('specialty',$request->specialty)->get();
+            else  $list = Group::all();
+
+            return view('group.index',compact('list'));
     }
 
     /**
@@ -68,9 +73,18 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        return redirect('/user?group='.$id);
+        if(isset($request->specialty_id)){
+            $subjects = Subject::all();
+            $specialties = Specialty::find($request->specialty_id);
+            $group = Group::find($id);
+
+            return view('specialty.index', compact('subjects','specialties','id','group'));
+        }
+        else{
+            return redirect('/user?group='.$id);
+        }
     }
 
     /**
@@ -105,5 +119,47 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function subjects(Request $request)
+    {
+        $request->validate([
+            'subject' => 'required|integer',
+            'specialty' => 'required',
+            'user' => 'required',
+            'group' => 'required',
+        ]);
+
+        $specialty_subjects = DB::table('specialty_subjects')
+            ->where('subject',$request->subject)
+            ->where('specialty',$request->specialty)
+            ->where('user',$request->user)
+            ->where('semester',$request->semester)
+            ->where('group',$request->group)
+            ->count();
+        if($specialty_subjects > 0)  return redirect()->back();
+
+        $input = $request->except(['_token']);
+
+        DB::table('specialty_subjects')->insert([
+            'subject'   => $request->subject,
+            'specialty' => $request->specialty,
+            'semester'  => $request->semester,
+            'user'  => $request->user,
+            'group'  => $request->group
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function teachersGroup()
+    {
+        $list = DB::table('specialty_subjects')
+            ->join('groups','specialty_subjects.group','=','groups.id')
+            ->where('specialty_subjects.user',Auth::user()->id)
+            ->get();
+
+        return view('teachers.group', compact('list'));
     }
 }

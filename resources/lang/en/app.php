@@ -18,9 +18,16 @@ return [
     'subject' => 'Предмет',
     'specialty' => 'Специальность',
     'group' => 'Группы',
-    'user' => 'Студенты',
+    'user' => [
+        'student' => 'Студенты',
+        'teachers' => 'Преподаватели',
+    ],
     'teachers' => 'Оценка',
     'estimate' => 'Оценка',
     'attestation' => 'Текущая аттестация',
     'student' => 'Студенты',
+    'teachers' => 'Преподаватели',
+    'login' => 'Вход',
+    'profile' => 'Профиль',
+    'teachers-group' => 'Группы'
 ];

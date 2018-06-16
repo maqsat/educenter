@@ -4,7 +4,7 @@
 
     <!-- Column -->
     <div class="col-lg-12">
-        <h4 class="card-title">Предметы специальности - "{{ $specialties->title }}"</h4>
+        <h4 class="card-title">Предметы и преподаватели группы - "{{ $group->title }}"</h4>
 
         <div class="card">
             <div class="card-block">
@@ -32,6 +32,17 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-md-12">Преподаватель</label>
+                        <div class="col-md-12">
+                            <select class="form-control form-control-line" name="user">
+                                <option>Не выбрано</option>
+                                @foreach(\App\User::where('type_id',2)->get() as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-12">Семестр</label>
                         <div class="col-md-12">
                             <select class="form-control form-control-line" name="semester">
@@ -48,6 +59,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="specialty" value="{{ $specialties->id }}">
+                    <input type="hidden" name="group" value="{{ $group->id }}">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <button class="btn btn-success">Отправить</button>
@@ -58,18 +70,17 @@
         </div>
 
         <div class="row">
-            @for($i = 1; $i <= 8; $i++)
-                @if(DB::table('specialty_subjects')->where('specialty_subjects.specialty', $id)->where('semester',$i)->count() > 0)
-                <div class="col-md-4">
+            @foreach(DB::table('specialty_subjects')->where('group',$group->id)->groupBy('semester')->get() as $i => $item)
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">{{ $i }} - семестр</h4>
+                            <h4 class="card-title">{{ $item->semester }} - семестр</h4>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
                                         <th>Наименование</th>
+                                        <th>Преподаватель</th>
                                         <th>Действий</th>
                                     </tr>
                                     </thead>
@@ -77,14 +88,17 @@
                                     <?php
                                     $specialty_subjects = DB::table('specialty_subjects')
                                         ->join('subjects','specialty_subjects.subject','=','subjects.id')
-                                        ->where('specialty_subjects.specialty', $id)
-                                        ->where('specialty_subjects.semester',$i)
+                                        ->join('users','specialty_subjects.user','=','users.id')
+                                        ->where('specialty_subjects.specialty', $specialties->id)
+                                        ->where('specialty_subjects.semester',$item->semester)
+                                        ->where('specialty_subjects.group',$group->id)
                                         ->get();
+                                    //dd($specialty_subjects);
                                     ?>
                                     @foreach($specialty_subjects as $item)
                                         <tr>
-                                            <td>{{ $item->id }}</td>
                                             <td>{{ $item->title }}</td>
+                                            <td>{{ $item->name }}</td>
                                             <td>
                                                 <a href="" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down" title="Удалить" style="margin: 5px;"><i class="mdi mdi-delete"></i>Удалить</a>
                                                 <a href="" class="btn waves-effect waves-light btn-info pull-right hidden-sm-down"  title="Изменить" style="margin: 5px;"><i class="mdi mdi-grease-pencil"></i>Изменить</a>
@@ -98,8 +112,7 @@
                         </div>
                     </div>
                 </div>
-                @endif
-            @endfor
+            @endforeach
         </div>
     </div>
 @endsection

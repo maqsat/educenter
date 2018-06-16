@@ -62,21 +62,32 @@
                         <div class="form-group">
                             <label class="col-md-12">ФИО</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control form-control-line" name="name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">Номер зачетки</label>
-                            <div class="col-md-12">
-                                <input type="text" class="form-control form-control-line" name="uniqid">
+                                <input type="text" class="form-control form-control-line" name="name" value="{{ old('name') }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Пароль</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control form-control-line" name="password">
+                                <input type="text" class="form-control form-control-line" name="password"  value="{{ old('password') }}">
                             </div>
                         </div>
+                        @if(isset($_GET['group']))
+                        <div class="form-group">
+                            <label class="col-md-12">Номер зачетки</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control form-control-line" name="uniqid" value="{{ old('uniqid') }}">
+                            </div>
+                        </div>
+                        <input type="hidden" value="{{ $_GET['group'] }}" name="group_id">
+                        @else
+                            <div class="form-group">
+                                <label class="col-md-12">Логин</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control form-control-line" name="uniqid" value="{{ old('uniqid') }}">
+                                </div>
+                            </div>
+                            <input type="hidden" value="{{ $_GET['cathedra'] }}" name="cathedra_id">
+                        @endif
                     @else
                         <div class="form-group">
                             <label class="col-md-12">Наименование</label>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use App\Models\Group;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,14 +28,26 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function teachers()
-    {
-        return view('teachers.profile');
-    }
-
     public function estimate()
     {
-        return view('teachers.estimate');
+        $group = Group::where('id',$_GET['group'])->get();
+        return view('teachers.estimate', compact('group'));
+    }
+
+    public function estimated(Request $request)
+    {
+        DB::table('estimate_dates')->insert(['date'=>$request->date]);
+
+        foreach ($request->estimate as $item){
+            DB::table('dates_estimate')->insert([
+                'date_id' => $request->date,
+                'estimate' => $item
+            ]);
+        }
+
+        return redirect()->back();
+
+
     }
 
     public function attestation(){

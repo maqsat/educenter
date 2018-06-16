@@ -21,13 +21,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php $list = \App\Models\Group::all()?>
                         @foreach($list as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->title }}</td>
                                 <td>
-                                    <a href="/estimate" class="btn waves-effect waves-light btn-success pull-right hidden-sm-down"  title="Посмотреть" style="margin: 5px;"><i class="mdi mdi-eye"></i>Оценка</a>
+                                    <a href="/estimate?group={{ $item->id }}" class="btn waves-effect waves-light btn-success pull-right hidden-sm-down"  title="Оценка"><i class="mdi mdi-eye"></i>Оценка</a>
                                 </td>
                             </tr>
                         @endforeach

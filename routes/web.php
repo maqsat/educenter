@@ -18,14 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/teachers', 'HomeController@teachers')->name('teachers');
 Route::get('/estimate', 'HomeController@estimate')->name('estimate');
+Route::get('/estimated', 'HomeController@estimated')->name('estimated');
 Route::get('/attestation', 'HomeController@attestation')->name('attestation');
 Route::get('/student', 'HomeController@student')->name('student');
 
 
 
-Route::middleware(['web',])->group(function () {
+Route::middleware(['web','auth'])->group(function () {
     Route::resources([
         'faculty'   => 'FacultyController',
         'cathedra'  => 'CathedraController',
@@ -35,5 +35,10 @@ Route::middleware(['web',])->group(function () {
         'user'      => 'UserController',
     ]);
 
-    Route::post('/specialty_subjects', 'SpecialtyController@subjects');
+    Route::post('/group_subjects', 'GroupController@subjects');
 });
+
+
+Route::get('/logout', 'UserController@logout');
+Route::get('/profile', 'UserController@profile');
+Route::get('/teachers-group', 'GroupController@teachersGroup')->name('teachersGroup');
